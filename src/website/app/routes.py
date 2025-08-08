@@ -88,3 +88,18 @@ def orders():
     else:
         # If user not in session, redirect to login
         return redirect(url_for('login'))
+
+
+# Route for order's receipt
+@app.route('/order/<int:order_id>/receipt')
+def order_receipt(order_id):
+    # Retrieve user from session
+    user_id = session.get('user_id')
+    if user_id:
+        # Get order details
+        order = Order.query.get(order_id)
+
+        return render_template('receipt.html', order=order)
+    else:
+        # If user not in session, redirect to login
+        return redirect(url_for('login'))
